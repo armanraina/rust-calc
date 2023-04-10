@@ -1,8 +1,8 @@
 use std::io::Write;
-use std::{io, num};
+use std::io;
 use std::str::FromStr;
 
-fn main() {
+fn main() -> ! {
     loop {
         let mut input = String::new();
         io::stdin()
@@ -12,7 +12,10 @@ fn main() {
         let expression_tree = parse(&input);
         let result = calculate(&expression_tree);
         println!("{}", result);
-        io::stdout().flush();
+        match io::stdout().flush(){
+            Ok(_) => continue,
+            Err(_) => panic!("couldn't flush output"),
+        }
     }
 }
 
